@@ -1,0 +1,48 @@
+<div class="container">
+  <div style="text-align: center">
+    <h2 style="margin-top: 20px">Contact Me</h2>
+  </div>
+  <form [formGroup]="form" style="margin-top: 20px;">
+    <div class="form-group">
+      <label>Your Name : </label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Masukkan Username"
+        formControlName="name"
+      />
+      <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+        <span>Name is invalid.</span> 
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Your Email : </label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Masukkan Username"
+        formControlName="email"
+      />
+      <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+          <span>Email is invalid.</span> 
+        </div>
+    </div>
+    <div class="form-group">
+      <label>Your Message : </label>
+      <textarea
+        class="form-control"
+        name=""
+        id=""
+        rows="3"
+        formControlName="message"
+      >
+      </textarea>
+      <div *ngIf="message.touched && message.invalid" class="alert alert-danger">
+          <span>Message is invalid.</span> 
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">
+      Submit
+    </button>
+  </form>
+</div>
