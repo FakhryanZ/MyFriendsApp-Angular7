@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   isLoggedIn(){
-    return tokenNotExpired;
+    return false;
   }
 
   get currentUser(){
