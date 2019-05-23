@@ -2,16 +2,17 @@
   <div style="text-align: center">
     <h2 style="margin-top: 20px">Contact Me</h2>
   </div>
-  <form [formGroup]="form" style="margin-top: 20px;">
+  <form [formGroup]="ContactForm" style="margin-top: 20px;">
     <div class="form-group">
       <label>Your Name : </label>
       <input
         type="text"
         class="form-control"
-        placeholder="Masukkan Username"
+        placeholder="Masukkan Nama"
         formControlName="name"
+        #name
       />
-      <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+      <div *ngIf="ContactForm.controls['name'].touched && ContactForm.controls['name'].invalid" class="alert alert-danger">
         <span>Name is invalid.</span> 
       </div>
     </div>
@@ -20,10 +21,11 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Masukkan Username"
+        placeholder="Masukkan Email"
         formControlName="email"
+        #email
       />
-      <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+        <div *ngIf="ContactForm.controls['email'].touched && ContactForm.controls['email'].invalid" class="alert alert-danger">
           <span>Email is invalid.</span> 
         </div>
     </div>
@@ -31,18 +33,28 @@
       <label>Your Message : </label>
       <textarea
         class="form-control"
-        name=""
-        id=""
         rows="3"
         formControlName="message"
+        #message
       >
       </textarea>
-      <div *ngIf="message.touched && message.invalid" class="alert alert-danger">
+        <div *ngIf="ContactForm.controls['message'].touched && ContactForm.controls['message'].invalid" class="alert alert-danger">
           <span>Message is invalid.</span> 
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary" (click)="AddContact(name.value, email.value, message.value)">
       Submit
     </button>
   </form>
+
+  <br>
+
+  <h3>Your Data</h3>
+    <div *ngIf="ContactData" class="list-group">
+    <a *ngFor = "let contact of ContactData" style="border: 1px solid silver; border-radius: 5px; padding: 10px; margin-top: 10px; margin-bottom: 30px; width: 300px">
+      <p>Nama : {{contact.name}}</p>
+      <p>Email : {{contact.email}}</p>
+      <p>Message : {{contact.message}}</p>
+    </a>
+    </div>
 </div>
