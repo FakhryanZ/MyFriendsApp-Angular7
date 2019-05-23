@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-1"></div>
     <div class="col-10">
-      <form [formGroup]="form" style="margin-top: 20px;">
+      <form style="margin-top: 20px;" [formGroup]="FriendsForm">
         <div class="form-group row">
           <div class="col-2">
             <label>Nama</label>
@@ -16,7 +16,36 @@
               class="form-control"
               placeholder="Input Name"
               formControlName="name"
+              #name
             />
+            <div
+              *ngIf="
+                FriendsForm.controls['name'].touched &&
+                FriendsForm.controls['name'].invalid
+              "
+              class="alert alert-danger"
+            >
+              <span
+                *ngIf="FriendsForm.controls['name'].errors.required"
+                >Name is Required</span
+              >
+              <span
+                *ngIf="FriendsForm.controls['name'].errors.minlength"
+                >Name should minimum
+                {{
+                  FriendsForm.controls["name"].errors.minlength.requiredLength
+                }}
+                characters.</span
+              >
+              <span
+                *ngIf="FriendsForm.controls['name'].errors.maxlength"
+                >Name shouldn't more than
+                {{
+                  FriendsForm.controls["name"].errors.maxlength.requiredLength
+                }}
+                characters.</span
+              >
+            </div>
           </div>
         </div>
         <div class="form-group row">
@@ -29,7 +58,22 @@
               class="form-control"
               placeholder="Input Email"
               formControlName="email"
+              #email
             />
+            <div
+              *ngIf="
+                FriendsForm.controls['email'].touched &&
+                FriendsForm.controls['email'].invalid
+              "
+              class="alert alert-danger"
+            >
+              <span *ngIf="FriendsForm.controls['email'].errors.email"
+                >Email is invalid.</span
+              >
+              <span *ngIf="FriendsForm.controls['email'].errors.required"
+                >Email is Required.</span
+              >
+            </div>
           </div>
         </div>
         <div class="form-group row">
@@ -41,13 +85,26 @@
               type="text"
               class="form-control"
               placeholder="Input Contact No"
-              formControlName="contactno"
+              formControlName="contact"
+              #contact
             />
+            <div
+              *ngIf="
+                FriendsForm.controls['contact'].touched &&
+                FriendsForm.controls['contact'].invalid
+              "
+              class="alert alert-danger"
+            >
+              <span *ngIf="FriendsForm.controls['contact'].errors.required"
+                >Contact No is Required.</span
+              >
+            </div>
           </div>
           <button
             type="submit"
             class="btn btn-success"
             style="margin-top: 10px;"
+            (click)="AddFriend(name.value, email.value, contact.value)"
           >
             Add Friend
           </button>
@@ -63,7 +120,7 @@
     <form class="form-inline">
       <div class="form-group">
         <label>Search : </label>
-        <input type="text" class="form-control ml-3" formControlName="search" />
+        <input type="search" [(ngModel)]="SearchBar.name" name="Search" class="form-control ml-3" />
       </div>
     </form>
   </div>
@@ -79,12 +136,14 @@
             <th scope="col">Contact</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+        <tbody *ngIf="FriendsData">
+          <tr
+            *ngFor="let friend of FriendsData | filterBy: SearchBar; let i = index"
+          >
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ friend.name }}</td>
+            <td>{{ friend.email }}</td>
+            <td>{{ friend.contact }}</td>
           </tr>
         </tbody>
       </table>
