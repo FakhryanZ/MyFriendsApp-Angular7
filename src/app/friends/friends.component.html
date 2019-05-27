@@ -104,7 +104,7 @@
             type="submit"
             class="btn btn-success"
             style="margin-top: 10px;"
-            (click)="AddFriend(name.value, email.value, contact.value)"
+            (click)="AddFriend(name.value, email.value, contact.value)"[disabled]="!FriendsForm.valid"
           >
             Add Friend
           </button>

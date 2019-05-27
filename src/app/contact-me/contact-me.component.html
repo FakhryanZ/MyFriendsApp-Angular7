@@ -42,7 +42,7 @@
           <span>Message is invalid.</span> 
         </div>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="AddContact(name.value, email.value, message.value)">
+    <button type="submit" class="btn btn-primary" (click)="AddContact(name.value, email.value, message.value)" [disabled]="!ContactForm.valid" >
       Submit
     </button>
   </form>
